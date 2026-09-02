@@ -104,6 +104,45 @@ a:hover {
 }
 
 
+.nav-toggle {
+
+    display: none;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    width: 2rem;
+    height: 2rem;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+
+    color: inherit;
+
+}
+
+
+.nav-toggle-bar {
+
+    display: block;
+
+    width: 100%;
+    height: 1px;
+
+    background: currentColor;
+
+    transition: transform 0.25s ease, opacity 0.25s ease;
+
+}
+
+
 .nav-links {
 
     display: flex;
@@ -206,9 +245,19 @@ a:hover {
 
 .hero-title h1 {
 
+    /* shrink-to-fit so the negative margin below trims
+       only the trailing letter-spacing, not the whole
+       container width — this is what was pushing the
+       title past the right edge on some screens */
+    display: inline-block;
+
+    max-width: 100%;
+
+    /* lower minimum than before so the title can keep
+       shrinking on very narrow screens instead of wrapping */
     font-size:
         clamp(
-            4rem,
+            2.25rem,
             13vw,
             12rem
         );
@@ -223,9 +272,8 @@ a:hover {
        is consistent across browsers */
     margin-right: -0.075em;
 
-    /* let it wrap instead of relying on overflow-clipping
-       to keep it centered on narrow screens */
-    white-space: normal;
+    /* never wrap to a second line, regardless of screen size */
+    white-space: nowrap;
 
     text-wrap: balance;
 
@@ -766,16 +814,91 @@ a:hover {
     }
 
 
+    .nav-toggle {
+
+        display: flex;
+
+        z-index: 101;
+
+    }
+
+
+    /* When the menu is open, drop the difference blend and use
+       solid colors instead — the trick only works well over the
+       hero image, not over a full opaque panel */
+    .navigation.nav-open {
+
+        mix-blend-mode: normal;
+
+        background: var(--text);
+
+        color: var(--background);
+
+    }
+
+
+    .navigation.nav-open .nav-toggle-bar:first-child {
+
+        transform: translateY(3.5px) rotate(45deg);
+
+    }
+
+
+    .navigation.nav-open .nav-toggle-bar:last-child {
+
+        transform: translateY(-3.5px) rotate(-45deg);
+
+    }
+
+
     .nav-links {
 
-        gap: 1rem;
+        position: fixed;
+
+        inset: 0;
+
+        z-index: 100;
+
+        isolation: isolate;
+
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 2rem;
+
+        background: var(--text);
+
+        color: var(--background);
+
+        transform: translateY(-100%);
+
+        opacity: 0;
+
+        pointer-events: none;
+
+        transition: transform 0.3s ease, opacity 0.25s ease;
+
+    }
+
+
+    .navigation.nav-open .nav-links {
+
+        transform: translateY(0);
+
+        opacity: 1;
+
+        pointer-events: auto;
 
     }
 
 
     .nav-links a {
 
-        font-size: 0.65rem;
+        font-size: 1.1rem;
+
+        letter-spacing: 0.1em;
 
     }
 

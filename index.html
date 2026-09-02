@@ -27,10 +27,15 @@
             HUVUDVÄRK
         </a>
 
-        <div class="nav-links">
+        <button type="button" class="nav-toggle" aria-label="Öppna meny" aria-expanded="false" aria-controls="nav-links">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+
+        <div class="nav-links" id="nav-links">
 
             <a href="#music">
-                OM OSS
+                MUSIK
             </a>
 
             <a href="#media">
@@ -428,6 +433,52 @@
 
     </footer>
 
+
+    <script>
+        (function () {
+            const navigation = document.querySelector('.navigation');
+            const toggle = document.querySelector('.nav-toggle');
+            const links = document.querySelectorAll('.nav-links a');
+
+            function closeMenu() {
+                navigation.classList.remove('nav-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Öppna meny');
+                document.body.style.overflow = '';
+            }
+
+            function openMenu() {
+                navigation.classList.add('nav-open');
+                toggle.setAttribute('aria-expanded', 'true');
+                toggle.setAttribute('aria-label', 'Stäng meny');
+                document.body.style.overflow = 'hidden';
+            }
+
+            toggle.addEventListener('click', function () {
+                if (navigation.classList.contains('nav-open')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+
+            links.forEach(function (link) {
+                link.addEventListener('click', closeMenu);
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && navigation.classList.contains('nav-open')) {
+                    closeMenu();
+                }
+            });
+
+            // Close automatically if the viewport grows past the mobile breakpoint
+            const mobileQuery = window.matchMedia('(max-width: 768px)');
+            mobileQuery.addEventListener('change', function (e) {
+                if (!e.matches) closeMenu();
+            });
+        })();
+    </script>
 
 </body>
 
