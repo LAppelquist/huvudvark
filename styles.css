@@ -133,6 +133,7 @@ a:hover {
     position: relative;
 
     width: 100%;
+
     height: 100svh;
 
     min-height: 600px;
@@ -140,6 +141,11 @@ a:hover {
     overflow: hidden;
 
     background: #000;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
 
 }
 
@@ -184,12 +190,9 @@ a:hover {
 
 .hero-title {
 
-    position: absolute;
+    position: relative;
 
-    left: 50%;
-    bottom: 7rem;
-
-    transform: translateX(-50%);
+    z-index: 1;
 
     width: 100%;
 
@@ -211,11 +214,21 @@ a:hover {
             12rem
         );
 
-    font-weight: 700;
+    font-weight: 500;
 
     line-height: 0.78;
 
     letter-spacing: -0.075em;
+
+    /* trim the trailing letter-spacing so centering
+       is consistent across browsers */
+    margin-right: -0.075em;
+
+    /* let it wrap instead of relying on overflow-clipping
+       to keep it centered on narrow screens */
+    white-space: normal;
+
+    text-wrap: balance;
 
 }
 
@@ -231,24 +244,6 @@ a:hover {
     letter-spacing: 0.2em;
 
     opacity: 0.8;
-
-}
-
-
-.hero-scroll {
-
-    position: absolute;
-
-    left: 2rem;
-    bottom: 2rem;
-
-    color: white;
-
-    font-size: 0.65rem;
-
-    letter-spacing: 0.2em;
-
-    opacity: 0.7;
 
 }
 
@@ -787,35 +782,6 @@ a:hover {
 
 
     /* Hero */
-
-    .hero {
-
-        min-height: 100svh;
-
-    }
-
-
-    .hero-title {
-
-        bottom: 6rem;
-
-    }
-
-
-.hero-title h1 {
-    font-size: clamp(2.8rem, 14vw, 6rem);
-    white-space: nowrap;
-}
-
-
-    .hero-scroll {
-
-        left: 1.25rem;
-
-        bottom: 1.25rem;
-
-    }
-
 
     /* Intro */
 
