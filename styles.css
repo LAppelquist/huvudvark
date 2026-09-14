@@ -207,8 +207,6 @@ a:hover {
 
     object-fit: cover;
 
-    object-position: center;
-
 /*    
 Gråskala för hero-bild
 
@@ -617,6 +615,8 @@ filter:
 
     gap: 8rem;
 
+    max-height: 100rem;
+
 }
 
 
@@ -635,6 +635,9 @@ filter:
 
 }
 
+video {
+    width: 100%;
+}
 
 .about-text {
 
