@@ -230,7 +230,7 @@
 
         <div class="media-grid">
 
-            <div class="media-item media-large">
+            <div class="media-item">
 
                 <img src="images/20260818-DSC_7192.JPG" alt="Huvudvärk live">
 
@@ -247,6 +247,14 @@
             <div class="media-item">
 
                 <img src="images/Bermudatriangeln_albumomslag.PNG" alt="Huvudvärk pressbild">
+
+            </div>
+
+            <div class="media-item media-video" data-youtube-id="FEkOYs6aWIg">
+
+                <img src="https://img.youtube.com/vi/FEkOYs6aWIg/maxresdefault.jpg" alt="Huvudvärk video">
+
+                <span class="play-icon" aria-hidden="true"></span>
 
             </div>
 
@@ -271,6 +279,23 @@
         </div>
 
     </section>
+
+
+    <!-- =========================================
+         LIGHTBOX
+    ========================================== -->
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+
+        <button type="button" class="lightbox-close" aria-label="Stäng">✕</button>
+
+        <button type="button" class="lightbox-nav lightbox-prev" aria-label="Föregående">‹</button>
+
+        <div class="lightbox-track" id="lightbox-track"></div>
+
+        <button type="button" class="lightbox-nav lightbox-next" aria-label="Nästa">›</button>
+
+    </div>
 
 
 
@@ -443,6 +468,130 @@
                     }
                 });
             });
+        })();
+
+        // =========================================
+        // MEDIA LIGHTBOX
+        // =========================================
+        (function () {
+            const lightbox = document.getElementById('lightbox');
+            const track = document.getElementById('lightbox-track');
+            if (!lightbox || !track) return;
+
+            const closeBtn = lightbox.querySelector('.lightbox-close');
+            const prevBtn = lightbox.querySelector('.lightbox-prev');
+            const nextBtn = lightbox.querySelector('.lightbox-next');
+            const mediaItems = document.querySelectorAll('.media-grid .media-item');
+
+            // Build one slide per media item, in the same order as the grid.
+            // Items with a data-youtube-id become a video slide instead of
+            // an image slide.
+            mediaItems.forEach(function (item, index) {
+                const slide = document.createElement('div');
+                slide.className = 'lightbox-item';
+
+                const youtubeId = item.getAttribute('data-youtube-id');
+
+                if (youtubeId) {
+                    slide.classList.add('lightbox-item-video');
+
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'lightbox-video-wrapper';
+                    wrapper.dataset.youtubeId = youtubeId;
+
+                    slide.appendChild(wrapper);
+                } else {
+                    const img = item.querySelector('img');
+                    const slideImg = document.createElement('img');
+                    slideImg.src = img.src;
+                    slideImg.alt = img.alt || '';
+                    slide.appendChild(slideImg);
+                }
+
+                track.appendChild(slide);
+
+                item.addEventListener('click', function () {
+                    openLightbox(index);
+                });
+            });
+
+            const slides = track.querySelectorAll('.lightbox-item');
+            const videoWrappers = track.querySelectorAll('.lightbox-video-wrapper');
+
+            // Load the YouTube iframe only while its slide is actually the
+            // one in view, and tear it down again once it isn't — this is
+            // what starts/stops playback as you scroll between items.
+            const videoObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    const wrapper = entry.target;
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+                        if (!wrapper.querySelector('iframe')) {
+                            const iframe = document.createElement('iframe');
+                            iframe.src = 'https://www.youtube.com/embed/' + wrapper.dataset.youtubeId + '?autoplay=1&rel=0';
+                            iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+                            iframe.setAttribute('allowfullscreen', '');
+                            iframe.frameBorder = '0';
+                            wrapper.appendChild(iframe);
+                        }
+                    } else {
+                        wrapper.innerHTML = '';
+                    }
+                });
+            }, { root: track, threshold: [0, 0.6, 1] });
+
+            videoWrappers.forEach(function (wrapper) {
+                videoObserver.observe(wrapper);
+            });
+
+            function openLightbox(index) {
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+
+                // Jump straight to the chosen slide, no scroll animation
+                slides[index].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('is-open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+
+                // Stop any playing video immediately on close
+                videoWrappers.forEach(function (wrapper) {
+                    wrapper.innerHTML = '';
+                });
+            }
+
+            function scrollByOne(direction) {
+                track.scrollBy({ left: direction * track.clientWidth, behavior: 'smooth' });
+            }
+
+            closeBtn.addEventListener('click', closeLightbox);
+            prevBtn.addEventListener('click', function () { scrollByOne(-1); });
+            nextBtn.addEventListener('click', function () { scrollByOne(1); });
+
+            // Clicking the dark backdrop (not an image) closes the lightbox
+            lightbox.addEventListener('click', function (e) {
+                if (e.target === lightbox || e.target === track) closeLightbox();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (!lightbox.classList.contains('is-open')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') scrollByOne(1);
+                if (e.key === 'ArrowLeft') scrollByOne(-1);
+            });
+
+            // Let an ordinary (vertical) mouse wheel scroll the horizontal
+            // track too, so desktop users without a trackpad can still
+            // swipe between images.
+            track.addEventListener('wheel', function (e) {
+                if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                    track.scrollLeft += e.deltaY;
+                    e.preventDefault();
+                }
+            }, { passive: false });
         })();
     </script>
 
