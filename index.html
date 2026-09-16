@@ -89,7 +89,7 @@
             <div class="about-heading">
 
                 <p>
-                    Du, min Bermuda. Tar du nånsin slut? Bäst för dig.
+                    Du, min Bermuda. Tar du nånsin slut?
                 </p>
 
 
@@ -527,7 +527,7 @@
                     if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
                         if (!wrapper.querySelector('iframe')) {
                             const iframe = document.createElement('iframe');
-                            iframe.src = 'https://www.youtube.com/embed/' + wrapper.dataset.youtubeId + '?autoplay=1&rel=0';
+                            iframe.src = 'https://www.youtube.com/embed/' + wrapper.dataset.youtubeId + '?autoplay=1&rel=0&origin=https://huvudvark.com';
                             iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
                             iframe.setAttribute('allowfullscreen', '');
                             iframe.frameBorder = '0';
