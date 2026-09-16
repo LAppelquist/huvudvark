@@ -60,6 +60,11 @@ img {
 }
 
 
+video {
+    width: 100%;
+}
+
+
 a {
     color: inherit;
     text-decoration: none;
@@ -313,43 +318,6 @@ filter:
 
 
 /* =========================================
-   INTRO
-========================================= */
-
-.intro {
-
-    padding:
-        12rem
-        max(2rem, 8vw);
-
-}
-
-
-.intro-content {
-
-    max-width: 1100px;
-
-}
-
-
-.intro-text {
-
-    font-size:
-        clamp(
-            2.5rem,
-            6vw,
-            6rem
-        );
-
-    line-height: 0.98;
-
-    letter-spacing: -0.055em;
-
-}
-
-
-
-/* =========================================
    GENERAL SECTION
 ========================================= */
 
@@ -383,15 +351,6 @@ filter:
 }
 
 
-.section-number {
-
-    color: var(--muted);
-
-    font-size: 0.7rem;
-
-}
-
-
 .section-header h2 {
 
     font-size: 0.8rem;
@@ -405,95 +364,57 @@ filter:
 
 
 /* =========================================
-   MUSIC
+   ABOUT
 ========================================= */
 
-.music-grid {
+.about-grid {
 
     display: grid;
 
     grid-template-columns:
-        1.4fr
+        1fr
         1fr;
 
-    gap: 4rem;
+    gap: 8rem;
+
+    max-height: 100rem;
 
 }
 
 
-.album-image {
+.about-heading p {
 
-    aspect-ratio: 1 / 1;
+    font-size:
+        clamp(
+            2rem,
+            4vw,
+            4rem
+        );
 
-    overflow: hidden;
+    line-height: 1;
 
-}
-
-
-.album-image img {
-
-    height: 100%;
-
-    object-fit: cover;
+    letter-spacing: -0.045em;
 
 }
 
 
-.release-info {
+.about-text {
 
-    margin-top: 1.5rem;
-
-}
-
-
-.release-label {
-
-    font-size: 0.65rem;
-
-    color: var(--muted);
-
-    letter-spacing: 0.15em;
+    max-width: 600px;
 
 }
 
 
-.release-info h3 {
+.about-text p {
 
-    margin-top: 0.5rem;
+    margin-bottom: 2rem;
 
-    font-size: 2rem;
+    font-size: 1.05rem;
 
-    font-weight: 400;
-
-    letter-spacing: -0.03em;
+    line-height: 1.6;
 
 }
 
-
-.release-info p {
-
-    margin-top: 0.25rem;
-
-    color: var(--muted);
-
-}
-
-
-.text-link {
-
-    display: inline-block;
-
-    margin-top: 1.5rem;
-
-    padding-bottom: 0.25rem;
-
-    border-bottom: 1px solid var(--text);
-
-    font-size: 0.7rem;
-
-    letter-spacing: 0.12em;
-
-}
 
 .spotify-container {
 
@@ -504,6 +425,29 @@ filter:
     padding-top: 5%;
 
     padding-bottom: 10%;
+
+}
+
+
+.video-wrapper {
+
+    position: relative;
+
+    aspect-ratio: 16 / 9;
+
+}
+
+
+.video-wrapper iframe {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: none;
 
 }
 
@@ -556,7 +500,6 @@ filter:
 }
 
 
-
 .media-video {
 
     position: relative;
@@ -601,6 +544,32 @@ filter:
     border-width: 0.55rem 0 0.55rem 0.95rem;
 
     border-color: transparent transparent transparent white;
+
+}
+
+
+.media-downloads {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 2rem;
+
+    margin-top: 3rem;
+
+}
+
+
+.media-downloads a {
+
+    font-size: 0.7rem;
+
+    letter-spacing: 0.12em;
+
+    border-bottom: 1px solid var(--text);
+
+    padding-bottom: 0.3rem;
 
 }
 
@@ -799,168 +768,6 @@ filter:
 .lightbox-next {
 
     right: 1.5rem;
-
-}
-
-
-.video-wrapper {
-
-    position: relative;
-
-    aspect-ratio: 16 / 9;
-
-}
-
-
-.video-wrapper iframe {
-
-    position: absolute;
-
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    border: none;
-
-}
-
-
-.media-downloads {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 2rem;
-
-    margin-top: 3rem;
-
-}
-
-
-.media-downloads a {
-
-    font-size: 0.7rem;
-
-    letter-spacing: 0.12em;
-
-    border-bottom: 1px solid var(--text);
-
-    padding-bottom: 0.3rem;
-
-}
-
-
-
-/* =========================================
-   ABOUT
-========================================= */
-
-.about-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        1fr
-        1fr;
-
-    gap: 8rem;
-
-    max-height: 100rem;
-
-}
-
-
-.about-heading p {
-
-    font-size:
-        clamp(
-            2rem,
-            4vw,
-            4rem
-        );
-
-    line-height: 1;
-
-    letter-spacing: -0.045em;
-
-}
-
-video {
-    width: 100%;
-}
-
-.about-text {
-
-    max-width: 600px;
-
-}
-
-
-.about-text p {
-
-    margin-bottom: 2rem;
-
-    font-size: 1.05rem;
-
-    line-height: 1.6;
-
-}
-
-
-
-/* =========================================
-   PRESS
-========================================= */
-
-.press {
-
-    max-width: var(--max-width);
-
-    margin: 10rem auto 0;
-
-    padding: 0 2rem;
-
-    display: grid;
-
-    grid-template-columns:
-        1fr
-        1fr;
-
-    gap: 5rem;
-
-}
-
-
-.press-quote p {
-
-    font-size:
-        clamp(
-            1.5rem,
-            2.5vw,
-            2.5rem
-        );
-
-
-    line-height: 1.1;
-
-    letter-spacing: -0.035em;
-
-}
-
-
-.press-quote span {
-
-    display: block;
-
-    margin-top: 1.5rem;
-
-    color: var(--muted);
-
-    font-size: 0.65rem;
-
-    letter-spacing: 0.12em;
 
 }
 
@@ -1173,19 +980,6 @@ video {
     }
 
 
-    /* Hero */
-
-    /* Intro */
-
-    .intro {
-
-        padding:
-            7rem
-            1.5rem;
-
-    }
-
-
     /* Sections */
 
     .section {
@@ -1203,13 +997,13 @@ video {
     }
 
 
-    /* Music */
+    /* About */
 
-    .music-grid {
+    .about-grid {
 
         grid-template-columns: 1fr;
 
-        gap: 3rem;
+        gap: 4rem;
 
     }
 
@@ -1249,32 +1043,6 @@ video {
     }
 
 
-    /* About */
-
-    .about-grid {
-
-        grid-template-columns: 1fr;
-
-        gap: 4rem;
-
-    }
-
-
-    /* Press */
-
-    .press {
-
-        grid-template-columns: 1fr;
-
-        gap: 4rem;
-
-        margin-top: 6rem;
-
-        padding: 0 1.5rem;
-
-    }
-
-
     /* Contact */
 
     .contact {
@@ -1282,6 +1050,8 @@ video {
         padding-bottom: 8rem;
 
     }
+
+
     /* Footer */
 
     .footer {
